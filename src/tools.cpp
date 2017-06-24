@@ -49,8 +49,13 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float px_py_square = px*px+py*py;
   float l2_px_py=sqrt(px_py_square);
   //check division by zero
-  if(l2_px_py==0.){
+//  cout<<"CalculateJacobian() - Error - Division by Zero"<<endl;
+
+  if(px_py_square<0.0001){
     cout<<"CalculateJacobian() - Error - Division by Zero"<<endl;
+    Hj<< 0,0,0,0,
+    0,0,0,0,
+    0,0,0,0;
     return Hj;
   }
   //compute the Jacobian matrix

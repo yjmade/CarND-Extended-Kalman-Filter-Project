@@ -23,6 +23,10 @@ public:
   // measurement covariance matrix
   Eigen::MatrixXd R_;
 
+  Eigen::MatrixXd Hj;
+
+  Eigen::MatrixXd Rr;
+
   /**
    * Constructor
    */
@@ -43,7 +47,7 @@ public:
    * @param Q_in Process covariance matrix
    */
   void Init(Eigen::VectorXd &x_in, Eigen::MatrixXd &P_in, Eigen::MatrixXd &F_in,
-      Eigen::MatrixXd &H_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &Q_in);
+            Eigen::MatrixXd &H_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &R_radar, Eigen::MatrixXd &Q_in);
 
   /**
    * Prediction Predicts the state and the state covariance
@@ -64,6 +68,8 @@ public:
    */
   void UpdateEKF(const Eigen::VectorXd &z);
 
+  Eigen::VectorXd h_radar(Eigen::VectorXd &measurement);
+  float normalizePhi(float phi);
 };
 
 #endif /* KALMAN_FILTER_H_ */
